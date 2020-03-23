@@ -5,6 +5,11 @@ application/cache/*
 
 tests/*
 
+application/config/database.php*
+application/config/config.php*
+
+application/controllers/Login.php*
+
 application/logs/*
 !application/logs/index.html
 
@@ -31,3 +36,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+*.jpg
+*.jpeg
+*.png
+*.gif

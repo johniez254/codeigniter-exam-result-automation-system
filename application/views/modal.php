@@ -24,6 +24,19 @@ $role       =	$this->db->get_where('login' , array('login_id'=>$id))->row()->rol
 			}
 		});
 	}
+
+
+    function showErrorMessage(msg) {
+    Messenger({
+        extraClasses: 'messenger-fixed messenger-on-right messenger-on-top',
+        theme: 'flat'
+    }).post({
+        message: msg,
+        type: 'error',
+        id: "Only-one-message",
+        showCloseButton: true
+    });
+}
 	</script>
  <!-- modal start -->
                                         <div class="modal fade" id="modal_ajax" data-backdrop="static">

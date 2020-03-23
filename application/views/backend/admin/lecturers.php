@@ -43,7 +43,7 @@
                                                             <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="<?php echo base_url()?>download/lecturers" target="_blank" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right"><i class="fa fa-print"></i> Print</a>
                                                             </div>
                                                             <?php }else{?>
-                                                            <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm btn-disabled  pull-right"><i class="fa fa-print"></i> Print</a>
+                                                            <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right"onclick="showErrorMessage('Ops! No Data Available!')"><i class="fa fa-print"></i> Print</a>
                                                             </div>
                                                             <?php }?>
 

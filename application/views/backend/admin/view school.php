@@ -83,7 +83,7 @@ $count_stud	=	$this->db->count_all_results();
                                         <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="<?php echo base_url()?>download/departments/'.<?php echo urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode($sch_id))))))))?>.'" target="_blank" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }else{?>
-                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm btn-disabled  pull-right"><i class="fa fa-print"></i> Print</a>
+                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right" onclick="showErrorMessage('Ops! No Data Available!')"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }?>
                                         <table id="example2" class="table table-hover table-condensed table-bordered invoice-table" cellspacing="0" width="100%">
@@ -146,7 +146,7 @@ $count_stud	=	$this->db->count_all_results();
                                         <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="<?php echo base_url()?>download/units/'.<?php echo urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode($sch_id))))))))?>.'" target="_blank" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }else{?>
-                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm btn-disabled  pull-right"><i class="fa fa-print"></i> Print</a>
+                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right" onclick="showErrorMessage('Ops! No Data Available!')"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }?>
                                         <table id="example3" class="table table-hover table-condensed table-bordered invoice-table" cellspacing="0" width="100%">
@@ -195,7 +195,7 @@ $count_stud	=	$this->db->count_all_results();
                                         <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="<?php echo base_url()?>download/lecturers/'.<?php echo urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode($sch_id))))))))?>.'" target="_blank" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }else{?>
-                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm btn-disabled  pull-right"><i class="fa fa-print"></i> Print</a>
+                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right" onclick="showErrorMessage('Ops! No Data Available!')"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }?>
                                                                 <table id="example4" class="table table-hover table-condensed table-bordered invoice-table" cellspacing="0" width="100%">
@@ -274,7 +274,7 @@ $count_stud	=	$this->db->count_all_results();
                                         <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="<?php echo base_url()?>download/students/'.<?php echo urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode(urlencode(base64_encode($sch_id))))))))?>.'" target="_blank" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }else{?>
-                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm btn-disabled  pull-right"><i class="fa fa-print"></i> Print</a>
+                                        <div style=" overflow:visible; display:block; position:relative;">                                        	<a href="#" style="margin-bottom:-25px;"  class="btn btn-info btn-sm  pull-right" onclick="showErrorMessage('Ops! No Data Available!')"><i class="fa fa-print"></i> Print</a>
                                         </div>
                                         <?php }?>
                                                                 <table id="example5" class=" table table-hover table-condensed table-bordered invoice-table" cellspacing="0" width="100%">

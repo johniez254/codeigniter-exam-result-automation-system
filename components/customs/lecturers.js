@@ -1,4 +1,6 @@
 
+var option_rand=$("#reg_no").val();
+
 $(document).ready(function(){
 	$("#lecturerForm").unbind('submit').bind('submit', function() {
 		
@@ -103,6 +105,7 @@ $(document).ready(function(){
 function clearForm()
 {
 	$('input[type="text"]').val('');
+	$("#reg_no").val(option_rand);
 	$('textarea').val('');
 	$('select').val('');
 	$(".form-group").removeClass('has-error').removeClass('has-success');

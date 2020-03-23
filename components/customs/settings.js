@@ -21,7 +21,11 @@ $(document).ready(function(){
 						
 						$(".form-group").removeClass('has-error').removeClass('has-success');
 						$(".help-block").remove();
-						$("#settingsForm").reset();
+						// $("#settingsForm").reset();
+
+						
+						$("html, body").animate({scrollTop: '0px'}, 100);
+						reLoad()
 				}
 				else {
 					
@@ -52,3 +56,9 @@ function resetForm(){
 	$(".form-group").removeClass('has-error').removeClass('has-success');
 	$('.help-block').remove();	
 }
+
+//reload page
+function reLoad(){
+	setTimeout(function(){location.reload();},1000);
+	//window.location.reload(500);
+	}
