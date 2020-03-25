@@ -42,6 +42,7 @@ $id		 =	$this->session->userdata('id');
                                                     <th>Semester</th>
                                                     <th>Year</th>
                                                     <th>Duration</th>
+                                                    <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -69,6 +70,24 @@ $id		 =	$this->session->userdata('id');
                                                     <td><?php echo $sem_name?></td>
                                                     <td><?php echo $sem_year?></td>
                                                     <td>(<?php echo $duration_from?> - <?php echo $duration_to?>)</td>
+                                                    <td>
+                                                    	<?php 
+                                                    		$today_date=date('m/d/Y');
+                                                    		$start=new DateTime($today_date);
+															$end=new DateTime($duration_to);
+															$interval=$start->diff($end);
+															
+															//get output (+ or -)
+															$output=$interval->format('%R');
+															//echo $output;
+															if($output=="+"){ ?>
+																<span class="badge badge-info"><i class='fa fa-clock-o'></i> In Progress</span>
+															<?php } else{ ?>
+																<span class="badge badge-secondary"><i class='fa fa-check'></i> Finished</span>
+
+														<?php } ?>
+
+                                                    </td>
                                                     <td>
                                                         <div class="btn-group">
                                                             <div class="dropdown">
