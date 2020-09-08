@@ -1,4 +1,3 @@
- 
 <script src="<?php echo base_url(); ?>components/customs/lecturers.js"></script>
 <?php foreach($lecturer_id->result() as $row):
 $lecturer_id=$row->lecturer_id;

@@ -24,8 +24,8 @@ $(document).ready(function(){
 						$(".form-group").removeClass('has-error').removeClass('has-success');
 						$(".help-block").remove();
 						$("html, body").animate({scrollTop: '0px'}, 100);
-						clearForm()
-						reLoad()
+						clearForm();
+						reLoad();
 						
 				}
 				else {
@@ -74,9 +74,8 @@ $(document).ready(function(){
 
 						$(".form-group").removeClass('has-error').removeClass('has-success');
 						$(".help-block").remove();
-						//clearForm()
 						$("html, body").animate({scrollTop: '0px'}, 100);
-						reLoad()
+						reLoad();
 						
 				}
 				else {

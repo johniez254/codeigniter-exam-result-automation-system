@@ -6,7 +6,7 @@ class Admin extends CI_Controller {
 	public function __construct(){
 		parent:: __construct();
 		$this->load->model('Admin_model','adm');
-		
+		$this->load->model('Status_model','status');
 		$this->check_session();//check session
 	}
 	
@@ -25,46 +25,79 @@ class Admin extends CI_Controller {
 	
 	//load dashboard page
 	public function dashboard(){
-        $page_data['page_name']  = 'dashboard';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'dashboard';//page title;
+		$page_data=array(
+
+	        'page_name'  => 'dashboard',
+			'crumb'  => '1',//number of breadcrumbs in header section
+	        'page_title' => 'dashboard',//page title;
+	        'total_schools' => $this->status->countTotalSchools(),
+	        'total_departments' => $this->status->countTotalDepartments(),
+	        'assigned_departments' => $this->status->countTotalDepartments('assigned'),
+	        'total_lecturers' => $this->status->countTotalLecturers(),
+	        'total_students' => $this->status->countTotalStudents(),
+	        'total_units' => $this->status->countTotalUnits(),
+	        'assigned_units' => $this->status->countTotalUnits('assigned'),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load lecturers page
 	public function lecturers(){
-        $page_data['page_name']  = 'lecturers';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'lecturers';//page title;
+		$page_data=array(
+	        'page_name' => 'lecturers',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+	        'page_title' => 'lecturers',//page title;
+	        'total_lecturers' => $this->status->countTotalLecturers(),
+	        'lecturersQuery' => $this->status->lecturersQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load students page
 	public function students(){
-        $page_data['page_name']  = 'students';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'students';//page title;
+		$page_data=array(
+	        'page_name'  => 'students',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+	        'page_title' => 'students',//page title;
+	        'total_students' => $this->status->countTotalStudents(),
+	        'studentsQuery' => $this->status->studentsQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load schools page
 	public function schools(){
-        $page_data['page_name']  = 'schools';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'schools';//page title;
+		$page_data=array(
+			'page_name'  => 'schools',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+        	'page_title' => 'schools',//page title;
+	        'total_schools' => $this->status->countTotalSchools(),
+	        'school_query' => $this->status->schoolQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	//load view students page
 	public function view_school($p1=""){
 		//encrypt and decrypt url
-				$encrypt=urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode($p1))))))));
-		$page_data['school_id']=$this->db->get_where('schools', array('school_id'=>$encrypt));
-        	$page_data['page_name']  = 'view school';
-			$page_data['crumb']  = '2';
-			$page_data['page_crumb']  = 'Schools';
-			$page_data['function']  = 'schools';
-        	$page_data['page_title'] = 'View School';
-        	$this->load->view('index', $page_data,'refresh');
+		$encrypt=urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode($p1))))))));
+		$page_data=array(
+			'school_id'=> $this->db->get_where('schools', array('school_id'=>$encrypt)),
+        	'page_name'  => 'view school',
+			'crumb'  => '2',
+			'page_crumb'  => 'Schools',
+			'function'  => 'schools',
+        	'page_title' => 'View School',
+
+	        'departments' => $this->status->countTotalDepartments('',$encrypt),
+	        'units' => $this->status->countTotalUnits('',$encrypt),
+	        'lecturers' => $this->status->countTotalLecturers('',$encrypt),
+	        'students' => $this->status->countTotalStudents('',$encrypt),
+	        'schoolQuery' => $this->status->schoolQuery($encrypt),
+	        'unitsQuery' => $this->status->unitsQuery('',$encrypt),
+	        'lecturersQuery' => $this->status->lecturersQuery('',$encrypt),
+	        'studentsQuery' => $this->status->studentsQuery('',$encrypt),
+        );
+        $this->load->view('index', $page_data,'refresh');
 	}
 	
 	//load view student results page
@@ -82,41 +115,61 @@ class Admin extends CI_Controller {
 	
 	//load departments page
 	public function departments(){
-        $page_data['page_name']  = 'departments';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'departments';//page title;
+		$page_data=array(
+        	'page_name'  => 'departments',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+        	'page_title' => 'departments',//page title;
+	        'total_departments' => $this->status->countTotalDepartments(),
+	        'departmentsQuery' => $this->status->departmentQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load semesters page
 	public function semesters(){
-        $page_data['page_name']  = 'semesters';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'semesters';//page title;
+		$page_data = array(
+	        'page_name'  => 'semesters',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+	        'page_title' => 'semesters',//page title;
+	        'semestersQuery' => $this->status->semestersQuery(),
+	        'total_semesters' => $this->status->countTotalSemesters(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load units page
 	public function units(){
-        $page_data['page_name']  = 'units';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'units';//page title;
+		$page_data=array(
+        	'page_name'  => 'units',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+        	'page_title' => 'units',//page title;
+	        'total_units' => $this->status->countTotalUnits(),
+	        'unitsQuery' => $this->status->unitsQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load courses page
 	public function courses(){
-        $page_data['page_name']  = 'courses';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'courses';//page title;
+		$page_data=array(
+	        'page_name'  => 'courses',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+	        'page_title' => 'courses',//page title;
+	        'total_courses' => $this->status->countTotalCourses(),
+	        'coursesQuery' => $this->status->coursesQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load grades page
 	public function grades(){
-        $page_data['page_name']  = 'grades';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'grades';//page title;
+		$page_data=array(
+	        'page_name' => 'grades',//page name
+			'crumb' => '1',//number of breadcrumbs in header section
+	        'page_title' => 'grades',//page title;
+	        'total_grades' => $this->status->countTotalGrades(),
+	        'gradesQuery' => $this->status->gradesQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	

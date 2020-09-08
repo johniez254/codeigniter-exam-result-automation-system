@@ -20,7 +20,7 @@ class Login extends CI_Controller {
 		
 		$this->load->dbutil();
 		 	
-			if ($this->dbutil->database_exists('database_name'))//modify this line to manually add your database name
+			if ($this->dbutil->database_exists('era'))//modify this line to manually add your database name
 				{
 					$this->load->view('login');
 				}

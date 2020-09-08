@@ -10,6 +10,7 @@ date_default_timezone_set('Africa/Nairobi');
 |--------------------------------------------------------------------------
 */
 $config['base_url'] = 'http://localhost/era/';
+//$config['base_url'] = 'http://192.168.244.1/era/';
 
 
 /*

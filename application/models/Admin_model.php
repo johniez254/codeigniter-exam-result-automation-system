@@ -296,6 +296,7 @@ public function courses_crud($p1="",$p2=""){
 			//encrypt password
 			$encrypted_password=password_hash($this->input->post('idno'),PASSWORD_DEFAULT);
 			$edited_regno=str_replace('_','',$this->input->post('reg_no'));
+			$date_reg=date('dMY');
 			
 			//student login array
 			$add_student_login_data = array(
@@ -322,7 +323,7 @@ public function courses_crud($p1="",$p2=""){
 				'assigned_school'=>$this->input->post('s2example-2'),
 				'programme_type'=>$this->input->post('p_type'),
 				'student_course'=>$this->input->post('s2example-3'),
-				'date_registered'=>strtotime($this->input->post('date_reg')),
+				'date_registered'=>strtotime($date_reg),
 				'login_id'=>$last_insert,
 			);
 			
@@ -637,6 +638,7 @@ public function courses_crud($p1="",$p2=""){
 			//encrypt password
 			$encrypted_password=password_hash($this->input->post('idno'),PASSWORD_DEFAULT);
 			$edited_regno=str_replace('_','',$this->input->post('reg_no'));
+			$date_reg=date('dMY');
 			
 			//lecturer login array
 			$add_lecturer_login_data = array(
@@ -661,7 +663,7 @@ public function courses_crud($p1="",$p2=""){
 				'lecturer_email'=>$this->input->post('email'),
 				'lecturer_gender'=>$this->input->post('gender'),
 				'assigned_school'=>$this->input->post('s2example-2'),
-				'date_registered'=>strtotime($this->input->post('date_reg')),
+				'date_registered'=>strtotime($date_reg),
 				'login_id'=>$last_insert,
 			);
 			

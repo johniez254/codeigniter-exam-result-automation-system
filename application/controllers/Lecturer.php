@@ -6,8 +6,10 @@ class Lecturer extends CI_Controller {
 	public function __construct(){
 		parent:: __construct();
 		$this->load->model('Lecturer_model','lec');
+		$this->load->model('Status_model','status');
 		
 		$this->check_session();//check session
+
 	}
 	
 	//for session check
@@ -15,7 +17,7 @@ class Lecturer extends CI_Controller {
         if ($this->session->userdata('logged_in') == FALSE)
             redirect(base_url(), 'refresh');
 	}
-	
+
 	//load index
 	public function index()
 	{
@@ -24,9 +26,16 @@ class Lecturer extends CI_Controller {
 	
 	//load dashboard page
 	public function dashboard(){
-        $page_data['page_name']  = 'dashboard';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'dashboard';//page title;
+		$page_data=array(
+        'page_name'  => 'dashboard',//page name
+		'crumb'  => '1',//number of breadcrumbs in header section
+        'page_title' => 'dashboard',//page title
+        'countResults'=>$this->status->countLecturerUploadedResults(),
+        'countCourses'=>$this->status->countLecturerCourses(),
+        'countUnits'=>$this->status->countLecturerUnits(),
+        'schoolAttached'=>$this->status->get_school_name(),
+        'resultsQuery'=>$this->status->resultsQuery(),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
@@ -34,30 +43,43 @@ class Lecturer extends CI_Controller {
 	
 	//load courses page
 	public function courses(){
-        $page_data['page_name']  = 'courses';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'courses';//page title;
+		$page_data=array(
+			'page_name'  => 'courses',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+	        'page_title' => 'courses',//page title
+        	'countCourses'=>$this->status->countLecturerCourses(),
+        	'schoolAttached'=>$this->status->get_school_name(),
+        	'schoolAttachedId'=>$this->status->get_lecturer_school_id(),
+        	'coursesQuery'=>$this->status->coursesQuery('','lec'),
+		);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
 	//load view students page
 	public function view_students($p1=""){
 		//encrypt and decrypt url
-				$encrypt=urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode($p1))))))));
-		$page_data['course_id']=$this->db->get_where('students', array('student_course'=>$encrypt));
-        	$page_data['page_name']  = 'view student';
-			$page_data['crumb']  = '2';
-			$page_data['page_crumb']  = 'Courses';
-			$page_data['function']  = 'courses';
-        	$page_data['page_title'] = 'View Student';
-        	$this->load->view('index', $page_data,'refresh');
+		$encrypt=urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode(urldecode(base64_decode($p1))))))));
+		$page_data=array(
+			'course_id'=>$this->db->get_where('students', array('student_course'=>$encrypt)),
+        	'page_name'  => 'view student',
+			'crumb' => '2',
+			'page_crumb'  => 'Courses',
+			'function'  => 'courses',
+        	'page_title' => 'View Student',
+        );
+        $this->load->view('index', $page_data,'refresh');
 	}
 	
 	//load units page
 	public function units(){
-        $page_data['page_name']  = 'units';//page name
-		$page_data['crumb']  = '1';//number of breadcrumbs in header section
-        $page_data['page_title'] = 'units';//page title;
+		$page_data=array(
+        	'page_name'  => 'units',//page name
+			'crumb'  => '1',//number of breadcrumbs in header section
+        	'page_title' => 'units',//page title;
+        	'countUnits'=>$this->status->countLecturerUnits(),
+        	'lecturerId'=>$this->status->get_lecturer_id(),
+        	'unitsQuery'=>$this->status->unitsQuery('','','lec'),
+    	);
         $this->load->view('index', $page_data,'refresh');//load index
 	}
 	
