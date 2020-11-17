@@ -24,6 +24,12 @@
                                 <li>
                                     <a href="#profile-1" data-toggle="tab">
                                         <i class="fa fa-plus"></i> Add Student
+                                    </a>
+                                    </li>
+                                <li>
+                                    <a href="#result-1" data-toggle="tab">
+                                        <i class="fa fa-eye"></i> View All Results
+                                    </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content primary">
@@ -192,9 +198,9 @@
                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label for="reg_no">Student's Registration Number *</label>
-                                            <span class="desc">e.g abcd/1234/<?php echo date('Y');?></span>
+                                            <span class="desc">e.g ab12/1234/<?php echo date('Y');?></span>
                                             <div class="controls">
-                                                <input type="text" name="reg_no" class="form-control" id="reg_no" style=" text-transform:uppercase;" data-mask="aaaa/99999/y"/>
+                                                <input type="text" name="reg_no" class="form-control" id="reg_no" style=" text-transform:uppercase;" data-mask="aa99/9999/y"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -246,6 +252,11 @@
                            </form>
                            <!--add student end-->
                        </div>
+
+                        <div class="tab-pane fade" id="result-1">
+                            <?php include "all_results.php" ?>
+                        </div>
+                        
                    </div>
                </div>
                <div class="clearfix"><br></div>

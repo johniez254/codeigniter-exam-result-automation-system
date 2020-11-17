@@ -94,6 +94,7 @@
        $unit_name=$row['unit_name'];
        $unit_code=$row['unit_code'];
        $result_code=$row['result_code'];
+       $lecturer_id=$row['lecturer_id'];
        $grade=$row['grade'];
 													//$adm_no       =	$this->db->get_where('login' , array('name'=>$student_name))->row()->username;
        $where=array("lecturer_id"=>$lecturer_id,"result_code"=>$result_code);

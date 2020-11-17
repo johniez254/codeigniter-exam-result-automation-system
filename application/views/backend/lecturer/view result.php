@@ -232,8 +232,8 @@ $school_name       =	$this->db->get_where('schools' , array('school_id'=>$assign
                                                     </div>
                                                     <div class="tab-pane fade" id="profile-1">
                                                     
-                                                                     <h4><strong>School : <?php echo $school_name;?></strong></h4>
-                                            <hr style="border:1px solid rgba(31, 181, 172, 1);" />
+                                                     <h4><strong>School : <?php echo $school_name;?></strong></h4>
+                                                    <hr style="border:1px solid rgba(31, 181, 172, 1);" />
                                                      <div class="success-messages"></div>
                                                     <form action ="<?php echo base_url()?>lecturer/result_crud/update/<?php echo $result_code;?>" method="post" id="updateResultForm">
                                                     <input type="hidden" id="base_url" value="<?php echo base_url(); ?>">

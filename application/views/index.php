@@ -81,7 +81,7 @@ $reg_no       =	$this->db->get_where('login' , array('login_id'=>$id))->row()->u
                         <li  <?php if($page_name=="schools" or $page_name=="departments" or $page_name=="courses" or $page_name=="view school"){echo 'class="open"';}else{}?>> 
                             <a href="javascript:;">
                                 <i class="fa fa-university"></i>
-                                <span class="title">Institution</span>
+                                <span class="title">Academics</span>
                                 <span class="arrow <?php if($page_name=="schools" or $page_name=="departments" or $page_name=="courses"){echo 'open';}else{}?>"></span><!--<span class="label label-orange">4</span>-->
                             </a>
                             <ul class="sub-menu"  <?php if($page_name=="schools" or $page_name=="departments" or $page_name=="courses"){echo 'style="display:block"';}else{}?>>

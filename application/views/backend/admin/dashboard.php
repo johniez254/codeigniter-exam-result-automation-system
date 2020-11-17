@@ -24,7 +24,7 @@
                   <?php echo $total_departments; ?>
                 </strong>
               </h4>
-              <span>Departments</span>
+              <span>Department<?php if($total_departments>1){echo "s";}?></span>
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
               <h4>
                 <strong><?php echo $total_lecturers;?></strong>
               </h4>
-              <span>Lecturers</span>
+              <span>Lecturer<?php if($total_lecturers>1){echo "s";}?></span>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
               <h4>
                 <strong><?php echo $total_students;?></strong>
               </h4>
-              <span>Students</span>
+              <span>Student<?php if($total_students>1){echo "s";}?></span></span>
             </div>
           </div>
         </div>
@@ -82,13 +82,10 @@
     <?php }else{?>
       <center>
         <h2>
-          <strong><?php echo $c_units;?></strong>
+          <strong><?php echo $assigned_units;?></strong>
         </h2>
         <h3>
-          <span class="semi-bold">Unit
-            <?php if($assigned_units>1){
-              echo "s";
-            }?> 
+          <span class="semi-bold">Unit<?php if($assigned_units>1){echo "s";}?> 
             <?php if($assigned_units>1){
               echo "have";
             }
@@ -98,10 +95,7 @@
             <?php if($assigned_units>1){
               echo "";
             }else{echo "to";
-            }?> lecturer
-            <?php if($assigned_units>1){
-              echo "s";
-            }?>.
+            }?> lecturer<?php if($assigned_units>1){echo "s";}?>.
           </span>
         </h3>
         <hr />

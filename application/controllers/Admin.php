@@ -957,7 +957,7 @@ class Admin extends CI_Controller {
 	
 	//-----------------------------------------------------------------------------------------------------------------------------
 	//units crud operations function
-	public function units_crud($p1='',$p2=''){
+	public function units_crud($p1='',$p2='', $p3=""){
 		//select course based on programme type
 		if($p1=="select_unit"){
 			$where="course_id=".$p2." AND assigned_to_lec='0'";
@@ -978,6 +978,121 @@ class Admin extends CI_Controller {
 		if($p1=="edit"){
 			$data['unit_id']=$this->db->get_where('units', array('unit_id' => $p2));
 			$this->load->view('backend/admin/modal_edit_units.php',$data,'refresh');
+		}
+		//select all student results based on units
+		if($p1=="select_student_results"){
+			
+			$where=array('semester_id'=>$p2,'unit_id'=>$p3);
+			$this->db->select('*');
+			$this->db->from('results');
+			$this->db->where($where);
+			$count=$this->db->count_all_results();
+			if($count=="0"){
+				echo '
+				<tr>
+					<td colspan="6">
+						<div class="alert alert-default alert-dismissible fade in">
+                         	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                             <strong>Info:</strong> No records found!</div>
+							 
+					</td>
+				</tr>
+
+				<script>
+						document.getElementById("pdf_button").style.display="none";
+				</script>';
+			}else{
+				$where=array('semester_id'=>$p2,'unit_id'=>$p3);
+				$this->db->select('*');
+				$this->db->from('results');
+				$this->db->where($where);
+				//$this->db->join('units', 'units.unit_id = results.unit_id');
+                $desc	=	$this->db->get()->result_array();
+                	$num=1;
+                	foreach($desc as $row):
+						$cat_marks=$row['cat_marks'];
+						$final_marks=$row['final_marks'];
+						$total_marks=$row['total_marks'];
+						$grade=$row['grade'];
+						$student_id=$row['student_id'];
+						$student_name=$this->db->get_where('students' , array('student_id'=>$student_id))->row()->student_name;
+
+						
+						echo '
+						<tr>
+							<td>'.$num++.'</td>
+							<td>'.$student_name.'</td>
+							<td class="text-center">'.$cat_marks.'</td>
+							<td class="text-center">'.$final_marks.'</td>
+							<td class="text-center">'.$total_marks.'</td>';
+							if($grade=="E"){
+							echo'<td>'.$grade.' *';'</td>';
+							}else{
+								echo'<td>'.$grade;'</td>';
+							}
+							//get total cat marks for all students who  sat for the cat
+							$where=array('semester_id'=>$p2,'unit_id'=>$p3);
+							$this->db->select_sum('cat_marks');
+							$this->db->from('results');
+							$this->db->where($where);
+							$desc=$this->db->get()->result_array();
+							$cat_total=0;
+							foreach($desc as $row):
+							$cat_total+=$row['cat_marks'];
+							endforeach;
+						
+						//get total marks for the final exxam
+							$where=array('semester_id'=>$p2,'unit_id'=>$p3);
+							$this->db->select_sum('final_marks');
+							$this->db->from('results');
+							$this->db->where($where);
+							$desc=$this->db->get()->result_array();
+							$final_total=0;
+							foreach($desc as $row):
+							$final_total+=$row['final_marks'];
+							endforeach;
+						
+						//get total marks of final scores of students
+						$all_total=$cat_total+$final_total;
+						
+						//get average total
+						$ave_total=$all_total/$count;
+						$cat_ave=round($cat_total/$count);
+						$final_ave=round($final_total/$count);
+						
+						//get average grade
+						$round_ave_total=round($ave_total);
+						//get average grade
+						$where="".$round_ave_total." BETWEEN start_mark AND end_mark";
+						$this->db->select('grade');
+						$this->db->from('grades');
+						$this->db->where($where);
+						$desc	=	$this->db->get()->result_array();
+							foreach($desc as $row):
+							$ave_grade= $row['grade'];
+							endforeach;
+				echo'
+					<script>
+							document.getElementById("pdf_button").style.display="block";
+					</script>';
+					
+					endforeach;
+						echo'</tr>
+						<tr>
+							<td colspan="2"><b>Total</b></td>
+							<td class="text-center"><b>'.$cat_total.'</b></td>
+							<td class="text-center"><b>'.$final_total.'</b></td>
+							<td class="text-center"><b>'.$all_total.'</b></td>
+							<td><b></b></td>
+						</tr>
+						<tr>
+							<td colspan="2"><b>MSS</b></td>
+							<td class="text-center"><b>'.$cat_ave.'</b></td>
+							<td class="text-center"><b>'.$final_ave.'</b></td>
+							<td class="text-center"><b>'.$round_ave_total.'</b></td>
+							<td><b>'.$ave_grade.'</b></td>
+						</tr>';
+			}
 		}
 		
 		//update

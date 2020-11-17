@@ -118,7 +118,10 @@ $count_lecs=$this->db->count_all_results()
 																					//$i=1;
 																					foreach($desc as $row):
 																								$unit_code=$row['unit_code'];
-																								echo "<span class='badge badge-warning'> ".$unit_code."</span> ";
+                                                                                                $unit_name=$row['unit_name'];
+																								echo "
+                                                                                                <div class=' col-md-4 bottom10'><a href='#' rel='tooltip' data-color-class = '' data-animate=' animated fadeIn' data-toggle='tooltip' data-original-title='".$unit_name."' data-placement='top'><u class='text-dark'><span class='badge badge-info'> ".$unit_code."</span></u></a></div>
+                                                                                                ";
 																								endforeach;
 																								}
 																				?>

@@ -308,5 +308,26 @@ class Download extends CI_Controller {
 			$this->pdf->stream("Results.pdf", array("Attachment"=>0));
 	}
 	
+	
+		//admin print students results
+	function unit_results(){
+		$sem_id=$this->input->post('sem_id');
+		$unit_id=$this->input->post('unit_id');
+		$course_id=$this->input->post('course_id');
+		//set header
+		$system_name      =	$this->db->get_where('settings' , array('system_id'=>'1'))->row()->system_name;
+			$html_content=$this->get_set_header();
+							
+			$html_content .= $this->down->get_unit_results($sem_id,$unit_id,$course_id);
+			
+			$this->pdf->loadHtml($html_content);
+			$this->pdf->render();
+			$canvas=$this->pdf->get_canvas();
+			//$font=Font_Metrics::get_font("helvetica","bold");
+			$canvas->page_text(500,10,"".$system_name."","",5,array(0,0,0));
+			$canvas->page_text(300,760,"Page: {PAGE_NUM} of {PAGE_COUNT}","",7,array(0,0,0));
+			$this->pdf->stream("Unit_Results.pdf", array("Attachment"=>0));
+	}
+	
 //end class download	
 }

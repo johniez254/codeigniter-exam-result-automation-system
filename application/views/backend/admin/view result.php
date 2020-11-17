@@ -39,6 +39,15 @@ $course_name       =	$this->db->get_where('courses' , array('course_id'=>$studen
                             	<div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
 
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-12 col-xs-12">
+                                            <a href="<?php echo base_url() ?>admin/students" class="btn btn-primary btn-md">
+                                               &laquo; Back to All Students
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr>
+
 
 
                                         <!-- Horizontal - start -->

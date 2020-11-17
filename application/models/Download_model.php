@@ -1068,6 +1068,140 @@ function view_attendances($id){
 					return $output;
 	}
 
+	//-----------------------------------------------------------------------------------------------------------------------------
+		//admin print all results based on unit_id
+	function get_unit_results($sem_id="",$unit_id="", $course_id){
+			$where=array('semester_id'=>$sem_id,'unit_id'=>$unit_id);
+			$this->db->select('*');
+			$this->db->from('results');
+			$this->db->where($where);
+			$count_unit_results=$this->db->count_all_results();
+
+			$course_name=$this->db->get_where('courses' , array('course_id'=>$course_id))->row()->course_name;
+			$sem_name=$this->db->get_where('semesters' , array('semester_id'=>$sem_id))->row()->semester_name;
+			$unit_name=$this->db->get_where('units' , array('unit_id'=>$unit_id))->row()->unit_name;
+			$sem_year=$this->db->get_where('semesters' , array('semester_id'=>$sem_id))->row()->semester_year;
+		
+		$output = '
+				 <table width="100%" cellspacing="0" style="font-size:small;">
+                	<tr>
+                    	<td><strong>COURSE NAME:</strong></td>
+                        <td>'.$course_name.'</td>
+                        <td><strong>UNIT NAME:</strong></td>
+                        <td>'.$unit_name.'</td>
+                    </tr>
+                    
+                	<tr>
+                    	<td><strong>ACADEMIC YEAR:</strong></td>
+                        <td>'.$sem_year.'</td>
+                        <td><strong>SEMESTER:</strong></td>
+                        <td>'.$sem_name.'</td>
+                    </tr>
+                </table>
+				<hr style="border:1px solid #000;" />
+			<h3 align="center">All Results : ('.$count_unit_results.')</h3>
+			<table width="100%" cellspacing="0" style="font-size:small;">
+						 <thead>
+							 <tr>
+								 <th style="border:1px solid #000; padding:5px; text-align:center;"><strong>#</strong></th>
+								 <th style="border:1px solid #000; padding:5px;">Student Name</th>
+								 <th style="border:1px solid #000; padding:5px;">Cat(30%)</th>
+								 <th style="border:1px solid #000; padding:5px;">Final(70%)</th>
+								 <th style="border:1px solid #000; padding:5px;">Total(100%)</th>
+								 <th style="border:1px solid #000; padding:5px;">Grade</th>
+							 </tr>
+						 </thead>
+						 <tbody>';
+							
+							$where=array('semester_id'=>$sem_id,'unit_id'=>$unit_id);
+							$this->db->select('*');
+							$this->db->from('results');
+							$this->db->where($where);
+							$desc	=	$this->db->get()->result_array();
+							$i=1;
+                                 foreach($desc as $row):
+								 $cat_marks=$row['cat_marks'];
+								$final_marks=$row['final_marks'];
+								$total_marks=$row['total_marks'];
+								$grade=$row['grade'];
+								$student_id=$row['student_id'];
+								$student_name=$this->db->get_where('students' , array('student_id'=>$student_id))->row()->student_name;
+								$output .= '<tr>
+											<td style="border:1px solid #000; padding:5px; text-align:center; width:6%;"><strong>'.$i++.'</strong>.</td>
+											<td style="border:1px solid #000; padding:5px; width:30%;">'.ucwords($student_name).'</td>
+											<td style="border:1px solid #000; padding:5px; text-align:right;">'.$cat_marks.'</td>
+											<td style="border:1px solid #000; padding:5px; text-align:right;">'.$final_marks.'</td>
+											<td style="border:1px solid #000; padding:5px; text-align:right;">'.$total_marks.'</td>';
+											if($grade=="E"){
+												$output .='<td style="border:1px solid #000; padding:5px; text-align:center;">'.$grade.' *';'</td>';
+												}else{
+													$output .='<td style="border:1px solid #000; padding:5px; text-align:center;">'.$grade.'</td>';
+												}
+												$output .='</td>';
+
+											//get total cat marks for all students who  sat for the cat
+											$where=array('semester_id'=>$sem_id,'unit_id'=>$unit_id);
+											$this->db->select_sum('cat_marks');
+											$this->db->from('results');
+											$this->db->where($where);
+											$desc=$this->db->get()->result_array();
+											$cat_total=0;
+											foreach($desc as $row):
+											$cat_total+=$row['cat_marks'];
+											endforeach;
+										
+										//get total marks for the final exxam
+											$where=array('semester_id'=>$sem_id,'unit_id'=>$unit_id);
+											$this->db->select_sum('final_marks');
+											$this->db->from('results');
+											$this->db->where($where);
+											$desc=$this->db->get()->result_array();
+											$final_total=0;
+											foreach($desc as $row):
+											$final_total+=$row['final_marks'];
+											endforeach;
+										
+										//get total marks of final scores of students
+										$all_total=$cat_total+$final_total;
+										
+										//get average total
+										$ave_total=$all_total/$count_unit_results;
+										$cat_ave=round($cat_total/$count_unit_results);
+										$final_ave=round($final_total/$count_unit_results);
+										
+										//get average grade
+										$round_ave_total=round($ave_total);
+										//get average grade
+										$where="".$round_ave_total." BETWEEN start_mark AND end_mark";
+										$this->db->select('grade');
+										$this->db->from('grades');
+										$this->db->where($where);
+										$desc	=	$this->db->get()->result_array();
+											foreach($desc as $row):
+											$ave_grade= $row['grade'];
+											endforeach;
+									
+								endforeach;
+											$output .= '</tr>
+											<tr>
+												<td colspan="2" style="border:1px solid #000; padding:5px; text-align:right;"><b>Total</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:right;"><b>'.$cat_total.'</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:right;"><b>'.$final_total.'</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:right;"><b>'.$all_total.'</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:right;"><b></b></td>
+											</tr>
+											<tr>
+												<td colspan="2" style="border:1px solid #000; padding:5px; text-align:right;"><b>MSS</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:right;"><b>'.$cat_ave.'</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:right;"><b>'.$final_ave.'</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:right;"><b>'.$round_ave_total.'</b></td>
+												<td style="border:1px solid #000; padding:5px; text-align:center;"><b>'.$ave_grade.'</b></td>
+											</tr>';
+						 $output .= '</tbody>
+					</table>';
+					
+					return $output;
+	}
 	
 	 ////////IMAGE URL//////////
     function get_image_url($type = '', $id = '') {

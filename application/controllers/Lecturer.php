@@ -388,12 +388,20 @@ class Lecturer extends CI_Controller {
 			$count=$this->db->count_all_results();
 			if($count=="0"){
 				//echo '<option>No Units available!</option>';
+				echo'<script>
+							document.getElementById("display_warning").style.display="block";
+					</script>
+					';
 			}else{
 				$course = $this->db->get_where('units' , array('course_id' => $p2))->result_array();
 				echo '<option></option>';
 				foreach ($course as $row) {
 				echo '<option value="' .$row['unit_id'] . '">' .$row['unit_name'].'</option>';
 				}
+				echo'<script>
+							document.getElementById("display_warning").style.display="none";
+					</script>
+					';
 			}
 		}
 	}

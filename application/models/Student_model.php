@@ -42,28 +42,28 @@ public function generate_result($p1="",$p2=""){
 				
 				$output = '
 				 <table width="100%" cellspacing="0" style="font-size:small;">
-                                                            	<tr>
-                                                                	<td><strong>NAME:</strong></td>
-                                                                    <td>'.$name.'</td>
-                                                                    <td><strong>REG NO:</strong></td>
-                                                                    <td>'.$username.'</td>
-                                                                </tr>
-                                                                
-                                                            	<tr>
-                                                                	<td><strong>SCHOOL OF:</strong></td>
-                                                                    <td>'.$school.'</td>
-                                                                    <td><strong>COURSE:</strong></td>
-                                                                    <td>'.$course_name.'</td>
-                                                                </tr>
-                                                                
-                                                            	<tr>
-                                                                	<td><strong>ACADEMIC YEAR:</strong></td>
-                                                                    <td>'.$semester_year.'</td>
-                                                                    <td><strong>SEMESTER:</strong></td>
-                                                                    <td>'.$semester_name.'</td>
-                                                                </tr>
-                                                            </table>
-															<hr style="border:1px solid #000;" />
+                	<tr>
+                    	<td><strong>NAME:</strong></td>
+                        <td>'.$name.'</td>
+                        <td><strong>REG NO:</strong></td>
+                        <td>'.$username.'</td>
+                    </tr>
+                    
+                	<tr>
+                    	<td><strong>SCHOOL OF:</strong></td>
+                        <td>'.$school.'</td>
+                        <td><strong>COURSE:</strong></td>
+                        <td>'.$course_name.'</td>
+                    </tr>
+                    
+                	<tr>
+                    	<td><strong>ACADEMIC YEAR:</strong></td>
+                        <td>'.$semester_year.'</td>
+                        <td><strong>SEMESTER:</strong></td>
+                        <td>'.$semester_name.'</td>
+                    </tr>
+                </table>
+				<hr style="border:1px solid #000;" />
 				<table width="100%" cellspacing="0" style="font-size:small;">
 				 				<thead>
                                 	<tr>
